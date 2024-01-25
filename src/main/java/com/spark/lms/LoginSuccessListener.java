@@ -16,9 +16,11 @@ public class LoginSuccessListener implements ApplicationListener<AuthenticationS
 	@Autowired
 	private UserService userService;
 	
+	//to store information about the logged-in user
 	@Autowired
 	private HttpSession httpSession;
 	
+	//to retrive the logged-in user and store it in the session and display name
 	@Override
 	public void onApplicationEvent(AuthenticationSuccessEvent event) {
         User user = (User) event.getAuthentication().getPrincipal();

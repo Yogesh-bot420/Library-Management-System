@@ -16,11 +16,13 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
     private UserService userService;
 
     @Override
+    //perform initialization from the database
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         initDatabaseEntities();
     }
 
 
+    //add two predefined users for admin and librarian by using userService
     private void initDatabaseEntities() {
 
         if( userService.getAllUsers().size() == 0) {

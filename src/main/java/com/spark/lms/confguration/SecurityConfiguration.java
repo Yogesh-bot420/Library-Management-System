@@ -16,15 +16,19 @@ import com.spark.lms.common.Constants;
 import javax.sql.DataSource;
 
 @Configuration
+//Spring Security Configuration
 @EnableWebSecurity
+//convenient base class for creating a WebSecurityConfigurer instance
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    //JDBC Authentication
     @Autowired
     private DataSource dataSource;
 
+    //Reads the SQL query for fetching roles from the application.properties file
     @Value("${spring.queries.users-query}")
     private String usersQuery;
 
@@ -41,8 +45,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    //configure HTTP security
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/login").permitAll();
+        http.authorizeRequests().antMatchers("/login").permitAll();//unauthenticated users
 
         http.authorizeRequests()
                 .antMatchers("/**").hasAnyAuthority(Constants.ROLE_ADMIN, Constants.ROLE_LIBRARIAN).anyRequest()

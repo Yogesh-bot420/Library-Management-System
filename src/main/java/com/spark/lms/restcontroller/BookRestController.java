@@ -23,17 +23,22 @@ public class BookRestController {
 	@Autowired
 	private CategoryService categoryService;
 	
+	// returns a list of all books by invoking the getAll() method of the injected BookService.
 	@GetMapping(value = {"/", "/list"})
 	public List<Book> all() {
 		return bookService.getAll();
 	}
 	
+	//retrieves the category using the injected CategoryService and then fetches a list of books associated
+	//with that category using getByCategory() from BookService.
 	@GetMapping(value = "/{id}/list")
 	public List<Book> get(@PathVariable(name = "id") Long id) {
 		Category category = categoryService.get(id);
 		return bookService.getByCategory( category );
 	}
 	
+	//retrieves the category using the injected CategoryService and then fetches
+	//a list of available books associated with that category using getAvailableByCategory() from BookService
 	@GetMapping(value = "/{id}/available")
 	public List<Book> getAvailableBooks(@PathVariable(name = "id") Long id) {
 		Category category = categoryService.get(id);
